@@ -65,7 +65,13 @@ function generateDocumentation(filePath) {
 
     const documentationContent = createDocumentation(parsedContent);
     
-    createDocumentationFile(filePath, documentationContent);
+    // Append the file content to the documentation
+    const fullDocumentationContent = documentationContent + '\n\n## File Content\n' + fileContent;
+
+    // Print the file content to the terminal
+    console.log(`File Content from ${filePath}:\n`, fileContent);
+
+    createDocumentationFile(filePath, fullDocumentationContent);
 }
 
 function createDocumentation(parsedData) {
