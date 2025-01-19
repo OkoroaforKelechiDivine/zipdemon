@@ -132,12 +132,15 @@ async function fetchGeminiExplanation(fileContent) {
                 },
             }
         );
-        console.log("I got the response", response);
+        console.log("Full Gemini API response:", response.data);
 
         if (response.data && response.data.candidates && response.data.candidates.length > 0) {
-            return response.data.candidates[0].output || 'No explanation generated.';
+            const explanation = response.data.candidates[0].content.parts[0].text || 'No explanation generated.';
+            console.log('Explanation:', explanation);
+            return explanation;
         } else {
-            return 'No response from the Gemini API.';
+            console.warn('No valid candidates found in Gemini API response.');
+            return 'No explanation generated.';
         }
     } catch (error) {
         console.error('Error fetching explanation from Gemini API:', error);
