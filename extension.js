@@ -1,7 +1,6 @@
 const vscode = require('vscode');  
 const fs = require('fs');  
 const path = require('path');  
-const axios = require('axios');
 
 const parseJavaScript = require('./src/parsers/parseJavaScript');  
 const parsePython = require('./src/parsers/parsePython');  
@@ -66,28 +65,7 @@ function generateDocumentation(filePath) {
 
     const documentationContent = createDocumentation(parsedContent);
     
-    // Call the Gemini API to generate documentation
-    axios.post('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyCodqT4YwBHTea7CnLojpBO-rz-mn3cEWE', {
-        contents: [{
-            parts: [{
-                text: fileContent + '\n\n' + 'Generate a detailed documentation for the above content.'
-            }]
-        }]
-    })
-    .then(response => {
-        const geminiResponse = response.data;
-        // Assuming Gemini returns the documentation in 'text' field of the response
-        const geminiGeneratedContent = geminiResponse.contents[0].parts[0].text;
-
-        // Append the Gemini generated content to the documentation
-        const fullDocumentationContent = documentationContent + '\n\n## Gemini Generated Documentation\n' + geminiGeneratedContent;
-
-        // Create the markdown file with Gemini's content
-        createDocumentationFile(filePath, fullDocumentationContent);
-    })
-    .catch(error => {
-        vscode.window.showErrorMessage('Error generating documentation from Gemini API: ' + error.message);
-    });
+    createDocumentationFile(filePath, documentationContent);
 }
 
 function createDocumentation(parsedData) {
