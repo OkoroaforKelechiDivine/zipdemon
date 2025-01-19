@@ -15,10 +15,14 @@ function activate(context) {
     }));  
 
     let fileWatcher = vscode.workspace.createFileSystemWatcher('**/*');  
-    
+
     fileWatcher.onDidCreate((uri) => {  
         promptToDocumentNewFile(uri);  
     });  
+
+    fileWatcher.onDidChange((uri) => {
+        promptToDocumentFileChange(uri); // Check for content change in the file
+    });
 
     context.subscriptions.push(fileWatcher);  
 }  
@@ -29,6 +33,14 @@ function promptToDocumentNewFile(uri) {
     const supportedExtensions = ['.js', '.py', '.java', '.cpp', '.rb', '.go'];  
     
     if (supportedExtensions.includes(fileExtension)) {  
+        const fileContent = fs.readFileSync(filePath, 'utf-8');
+        
+        if (fileContent.trim().length === 0) {
+            // If the file is empty, do not show the information message
+            console.log(`The file ${filePath} is empty, no documentation will be generated.`);
+            return;
+        }
+
         vscode.window.showInformationMessage(  
             `A new ${fileExtension} file has been created. Would you like to generate documentation?`,   
             'Yes',   
@@ -40,6 +52,30 @@ function promptToDocumentNewFile(uri) {
         });  
     }  
 }  
+
+function promptToDocumentFileChange(uri) {
+    const filePath = uri.fsPath;  
+    const fileExtension = path.extname(filePath).toLowerCase();  
+    const supportedExtensions = ['.js', '.py', '.java', '.cpp', '.rb', '.go'];
+
+    if (supportedExtensions.includes(fileExtension)) {
+        const fileContent = fs.readFileSync(filePath, 'utf-8');
+
+        // Check if the file was empty before and now has content
+        if (fileContent.trim().length > 0) {
+            // If file was previously empty, show information message
+            vscode.window.showInformationMessage(
+                `The ${fileExtension} file now has content. Would you like to generate documentation?`,
+                'Yes',
+                'No'
+            ).then(selection => {
+                if (selection === 'Yes') {
+                    generateDocumentation(filePath);
+                }
+            });
+        }
+    }
+}
 
 function generateDocumentation(filePath) {
     const fileContent = fs.readFileSync(filePath, 'utf-8');
@@ -112,4 +148,4 @@ function deactivate() {}
 module.exports = {  
     activate,  
     deactivate  
-};  
+};
