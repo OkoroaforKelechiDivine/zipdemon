@@ -33,10 +33,10 @@ function activate(context) {
 
 function createPlayButtonView(context) {  
     const panel = vscode.window.createWebviewPanel(  
-        'playButton',
-        'Documentation Generator',
+        'playButton',  
+        'Documentation Generator',  
         vscode.ViewColumn.One,  
-        {} 
+        {}   
     );  
 
     panel.webview.html = getWebviewContent();  
@@ -142,6 +142,7 @@ function createDocumentation(parsedData) {
 function createDocumentationFile(filePath, content) {  
     const docFolder = path.join(path.dirname(filePath), 'docs');  
 
+    // Check if the docs folder exists; if not, create it  
     if (!fs.existsSync(docFolder)) {  
         fs.mkdirSync(docFolder);  
     }  
