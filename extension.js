@@ -156,7 +156,7 @@ async function generateDocumentation(filePath) {
     ).then(async (selection) => {
         if (selection === 'Yes') {
             const geminiURL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent";
-            const apiKey = "AIzaSyCodqT4YwBHTea7CnLojpBO-rz-mn3cEWE";  // Replace with your actual API key
+            const apiKey = "GEMINI_API_KEY";  // Replace with your actual API key
             const headers = {
                 "Content-Type": "application/json",
             };
@@ -188,14 +188,13 @@ async function generateDocumentation(filePath) {
                     }
                 }
 
-                if (response && response.data && response.data.choices && response.data.choices.length > 0) {
-    const openAIDocumentation = response.data.choices[0].text.trim();
-    const finalDocumentationContent = `${parsedData}\n\n${openAIDocumentation}`;
-    createDocumentationFile(filePath, finalDocumentationContent);
-} else {
-    vscode.window.showInformationMessage("No documentation generated from Gemini API response.");
-}
-
+                if (response) {
+                    const geminiDocumentation = response.data.contents[0].parts[0].text.trim();
+                    const finalDocumentationContent = `${parsedData}\n\n${geminiDocumentation}`;
+                    createDocumentationFile(filePath, finalDocumentationContent);
+                } else {
+                    vscode.window.showInformationMessage("Failed to generate documentation after retries.");
+                }
 
             } catch (error) {
                 console.error("Error:", error);
@@ -204,6 +203,7 @@ async function generateDocumentation(filePath) {
         }
     });
 }
+
 
 function createDocumentation(parsedData) {
     let docContent = '# Documentation\n\n';
@@ -222,13 +222,8 @@ function createDocumentation(parsedData) {
 
     return docContent;
 }
-
 function createDocumentationFile(filePath, content) {
     const docFolder = path.join(path.dirname(filePath), 'docs');
-
-    if (!fs.existsSync(docFolder)) {
-        fs.mkdirSync(docFolder);
-    }
 
     const docFileName = `${path.basename(filePath, path.extname(filePath))}_documentation.md`;
     const docFilePath = path.join(docFolder, docFileName);
@@ -236,7 +231,6 @@ function createDocumentationFile(filePath, content) {
     fs.writeFileSync(docFilePath, content, 'utf-8');
     vscode.window.showInformationMessage(`Documentation created: ${docFilePath}`);
 }
-
 function deactivate() {}
 
 module.exports = {
