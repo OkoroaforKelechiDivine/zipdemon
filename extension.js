@@ -80,7 +80,7 @@ function getWebviewContent() {
 function promptToDocumentNewFile(uri) {  
     const filePath = uri.fsPath;  
     const fileExtension = path.extname(filePath).toLowerCase();  
-    const supportedExtensions = ['.js', '.ts', '.py', '.java', '.cpp', '.h', '.rb', '.go'];  
+    const supportedExtensions = ['.js', '.py', '.java', '.cpp', '.rb', '.go'];  
     
     if (supportedExtensions.includes(fileExtension)) {  
         vscode.window.showInformationMessage(  
