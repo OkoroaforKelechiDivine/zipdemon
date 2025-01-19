@@ -10,36 +10,89 @@ const parseRuby = require('./src/parsers/parseRuby');
 const parseGo = require('./src/parsers/parseGo');  
 
 function activate(context) {  
-    vscode.workspace.onDidCreateFiles((event) => {  
-        console.log('Files created:', event.files);  
-        event.files.forEach((file) => {  
-            vscode.window.showInformationMessage(`File created: ${file.fsPath}`);  
-            promptForDocumentation(file.fsPath);  
-        });  
-    });  
+    context.subscriptions.push(vscode.commands.registerCommand('zipdemon.showPlayButton', () => {  
+        createPlayButtonView(context);  
+    }));  
 
-    // Register the 'zipdemon.helloWorld' command  
     context.subscriptions.push(vscode.commands.registerCommand('zipdemon.helloWorld', () => {  
         vscode.window.showInformationMessage('Hello World from ZipDemon!');  
     }));  
 
-    // Register the 'zipdemon.generateDocumentation' command  
     context.subscriptions.push(vscode.commands.registerCommand('zipdemon.generateDocumentation', () => {  
         vscode.window.showInformationMessage('ZipDemon Documentation Generator is Active!');  
     }));  
+
+    let fileWatcher = vscode.workspace.createFileSystemWatcher('**/*');  
+    
+    fileWatcher.onDidCreate((uri) => {  
+        promptToDocumentNewFile(uri);  
+    });  
+
+    context.subscriptions.push(fileWatcher);  
 }  
 
-function promptForDocumentation(filePath) {  
-    console.log('Prompting for documentation for file:', filePath); // Log the file path being prompted for  
-    vscode.window.showInformationMessage('Would you like to generate documentation for ' + filePath + '?');  
-    vscode.window.showQuickPick(['Yes', 'No'], {  
-        placeHolder: 'Do you want to generate documentation for this file?',  
-    }).then((selection) => {  
-        console.log('User selected:', selection); // Log the user's selection  
-        if (selection === 'Yes') {  
-            generateDocumentation(filePath);  
-        }  
-    });  
+function createPlayButtonView(context) {  
+    const panel = vscode.window.createWebviewPanel(  
+        'playButton',
+        'Documentation Generator',
+        vscode.ViewColumn.One,  
+        {} 
+    );  
+
+    panel.webview.html = getWebviewContent();  
+    panel.webview.onDidReceiveMessage(  
+        message => {  
+            switch (message.command) {  
+                case 'generateDocumentation':  
+                    const activeTextEditor = vscode.window.activeTextEditor;  
+                    if (activeTextEditor) {  
+                        generateDocumentation(activeTextEditor.document.uri.fsPath); // Generate documentation for the current document  
+                    } else {  
+                        vscode.window.showInformationMessage('No active file to document.');  
+                    }  
+                    return;  
+            }  
+        },  
+        undefined,  
+        context.subscriptions  
+    );  
+}  
+
+function getWebviewContent() {  
+    return `<!DOCTYPE html>  
+    <html lang="en">  
+    <body>  
+        <h1>ZipDemon Documentation Generator</h1>  
+        <button id="playButton">Generate Documentation</button>  
+        <script>  
+            const playButton = document.getElementById('playButton');  
+            playButton.onclick = () => {  
+                // Send a message back to the extension  
+                vscode.postMessage({  
+                    command: 'generateDocumentation'  
+                });  
+            };  
+        </script>  
+    </body>  
+    </html>`;  
+}  
+
+function promptToDocumentNewFile(uri) {  
+    const filePath = uri.fsPath;  
+    const fileExtension = path.extname(filePath).toLowerCase();  
+    const supportedExtensions = ['.js', '.ts', '.py', '.java', '.cpp', '.h', '.rb', '.go'];  
+    
+    if (supportedExtensions.includes(fileExtension)) {  
+        vscode.window.showInformationMessage(  
+            `A new ${fileExtension} file has been created. Would you like to generate documentation?`,   
+            'Yes',   
+            'No'  
+        ).then(selection => {  
+            if (selection === 'Yes') {  
+                generateDocumentation(filePath);  
+            }  
+        });  
+    }  
 }  
 
 function generateDocumentation(filePath) {  

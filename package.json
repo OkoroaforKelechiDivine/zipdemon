@@ -1,20 +1,20 @@
 {  
   "name": "zipdemon",  
-  "displayName": "zipDemon",  
-  "description": "A VS Code extension that automatically generates documentation for newly created files, including class and method summaries, to keep your projects well-documented with ease.",  
+  "displayName": "ZipDemon",  
+  "description": "A VS Code extension that automatically generates documentation.",  
   "version": "0.0.1",  
   "engines": {  
     "vscode": "^1.54.0"  
   },  
-  "categories": [  
-    "Other"  
-  ],  
   "activationEvents": [  
-    "onCommand:zipdemon.helloWorld"  
+    "onCommand:zipdemon.showPlayButton"  
   ],  
-  "main": "./extension.js",  
   "contributes": {  
     "commands": [  
+      {  
+        "command": "zipdemon.showPlayButton",  
+        "title": "Show Play Button"  
+      },  
       {  
         "command": "zipdemon.helloWorld",  
         "title": "Hello World"  
@@ -25,6 +25,7 @@
       }  
     ]  
   },  
+  "main": "./extension.js",  
   "scripts": {  
     "lint": "eslint .",  
     "pretest": "npm run lint",  
