@@ -1,6 +1,7 @@
 const vscode = require('vscode');  
 const fs = require('fs');  
 const path = require('path');  
+const axios = require('axios');
 
 const parseJavaScript = require('./src/parsers/parseJavaScript');  
 const parsePython = require('./src/parsers/parsePython');  
@@ -77,7 +78,7 @@ function promptToDocumentFileChange(uri) {
     }
 }
 
-function generateDocumentation(filePath) {
+async function generateDocumentation(filePath) {
     const fileContent = fs.readFileSync(filePath, 'utf-8');
     const fileExtension = path.extname(filePath).toLowerCase();
     let parsedContent;
@@ -99,19 +100,54 @@ function generateDocumentation(filePath) {
         return;
     }
 
-    const documentationContent = createDocumentation(parsedContent);
-    
+    const geminiResponse = await fetchGeminiExplanation(fileContent);
+
+    const documentationContent = createDocumentation(parsedContent, geminiResponse);
+
     // Append the file content to the documentation
     const fullDocumentationContent = documentationContent + '\n\n## File Content\n' + fileContent;
 
-    // Print the file content to the terminal
     console.log(`File Content from ${filePath}:\n`, fileContent);
 
     createDocumentationFile(filePath, fullDocumentationContent);
 }
 
-function createDocumentation(parsedData) {
+async function fetchGeminiExplanation(fileContent) {
+    const apiKey = 'AIzaSyCodqT4YwBHTea7CnLojpBO-rz-mn3cEWE'; // Replace with your actual API key
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+
+    try {
+        const response = await axios.post(
+            apiUrl,
+            {
+                contents: [{
+                    parts: [{
+                        text: `Generate documentation for the following file content:\n${fileContent}`
+                    }]
+                }],
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
+        console.log("I got the response", response);
+
+        if (response.data && response.data.candidates && response.data.candidates.length > 0) {
+            return response.data.candidates[0].output || 'No explanation generated.';
+        } else {
+            return 'No response from the Gemini API.';
+        }
+    } catch (error) {
+        console.error('Error fetching explanation from Gemini API:', error);
+        return 'Failed to generate explanation due to an error.';
+    }
+}
+
+function createDocumentation(parsedData, geminiExplanation) {
     let docContent = '# Documentation\n\n';
+    docContent += `## AI Explanation\n${geminiExplanation}\n\n`;
 
     parsedData.classes.forEach((className) => {
         docContent += `## Class: ${className}\n\n`;
@@ -127,6 +163,7 @@ function createDocumentation(parsedData) {
 
     return docContent;
 }
+
 
 function createDocumentationFile(filePath, content) {
     const docFolder = path.join(path.dirname(filePath), 'docs');

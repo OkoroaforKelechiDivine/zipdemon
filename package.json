@@ -4,36 +4,36 @@
     "description": "A VS Code extension that automatically generates documentation.",
     "version": "0.0.1",
     "engines": {
-      "vscode": "^1.54.0"
+        "vscode": "^1.54.0"
     },
     "activationEvents": [
-      "onCommand:zipdemon.generateDocumentation"
+        "onCommand:zipdemon.generateDocumentation"
     ],
     "contributes": {
-      "commands": [
-        {
-          "command": "zipdemon.generateDocumentation",
-          "title": "Generate Documentation"
-        }
-      ]
+        "commands": [
+            {
+                "command": "zipdemon.generateDocumentation",
+                "title": "Generate Documentation"
+            }
+        ]
     },
     "main": "./extension.js",
     "scripts": {
-      "lint": "eslint .",
-      "pretest": "npm run lint",
-      "test": "vscode-test"
+        "lint": "eslint .",
+        "pretest": "npm run lint",
+        "test": "vscode-test"
     },
     "devDependencies": {
-      "@types/mocha": "^10.0.10",
-      "@types/node": "20.x",
-      "@types/vscode": "^1.54.0",
-      "@vscode/test-cli": "^0.0.10",
-      "@vscode/test-electron": "^2.4.1",
-      "eslint": "^9.16.0"
+        "@types/mocha": "^10.0.10",
+        "@types/node": "20.x",
+        "@types/vscode": "^1.54.0",
+        "@vscode/test-cli": "^0.0.10",
+        "@vscode/test-electron": "^2.4.1",
+        "eslint": "^9.16.0"
     },
     "dependencies": {
-      "axios": "^1.7.9",
-      "dotenv": "^16.4.7"
+        "@google/generative-ai": "^0.21.0",
+        "axios": "^1.7.9",
+        "dotenv": "^16.4.7"
     }
-  }
-  
+}
