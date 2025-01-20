@@ -13,9 +13,17 @@
         "commands": [
             {
                 "command": "zipdemon.generateDocumentation",
-                "title": "Generate Documentation"
+                "title": "Turn on zipDemon"
             }
-        ]
+        ],
+        "menus": {
+            "editor/context": [
+                {
+                    "command": "zipdemon.generateDocumentation",
+                    "when": "editorTextFocus"
+                }
+            ]
+        }
     },
     "main": "./extension.js",
     "scripts": {
