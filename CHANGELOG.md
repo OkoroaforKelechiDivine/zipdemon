@@ -1,9 +1,8 @@
-# Change Log
+# Changelog
 
-All notable changes to the "zipdemon" extension will be documented in this file.
-
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
-## [Unreleased]
-
-- Initial release
+## [1.0.0] - 2025-01-20
+### Initial Release
+- Added support for generating documentation for supported programming languages.
+- Integrated AI-powered language model for automatic code explanations.
+- Documentation is saved in a `docs` subdirectory as a Markdown file (`README.md`).
+- Supported languages: JavaScript, Python, Java (add more languages if applicable).

@@ -1,66 +1,55 @@
-# zipdemon README
+# ZipDemon - Visual Studio Code Extension
 
-This is the README for your extension "zipdemon". After writing up a brief description, we recommend including the following sections.
+ZipDemon is a Visual Studio Code extension that automatically generates documentation for supported programming languages. It leverages language language model to provide an AI-powered explanation of the code, along with a summary of classes, functions, and variables identified within the file. The generated documentation is saved as a Markdown file in a `docs` subdirectory within the same directory as the source code file.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- Automatically generates documentation for classes, functions, and variables.
+- Uses language language model for code explanation.
+- Saves the generated documentation as a Markdown file (`README.md`) in the `docs` subdirectory.
+- Supports a few programming languages (specify which ones here, e.g., JavaScript, Python, etc.).
 
-For example if there is an image subfolder under your extension project workspace:
+## Installation
 
-\!\[feature X\]\(images/feature-x.png\)
+To install the ZipDemon extension for Visual Studio Code:
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+1. Open Visual Studio Code.
+2. Go to the Extensions view by clicking the Extensions icon in the Activity Bar on the side of the window.
+3. Search for "zipDemon" and click on "Install."
 
-## Requirements
+Alternatively, you can install it from the [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/).
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+## Usage
 
-## Extension Settings
+1. Open the project directory that contains the code you want to document.
+2. Right-click on the source code file in the Explorer view.
+3. Select **Turn on zipDemon** from the context menu.
+4. The extension will analyze your code, generate a Markdown documentation file (`README.md`), and save it in the `docs` subdirectory.
+   
+   - The generated documentation will include an AI-powered explanation of the code and a list of identified classes, functions, and variables.
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+## Supported Languages
 
-For example:
+- JavaScript
+- Python
+- Java
+- c++
+- Ruby
+- Go
 
-This extension contributes the following settings:
+## Contributing
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/your-feature`).
+3. Commit your changes (`git commit -am 'Add new feature'`).
+4. Push to the branch (`git push origin feature/your-feature`).
+5. Create a new Pull Request.
 
-## Known Issues
+## License
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## Working with Markdown
 
-You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
-# zipdemon
