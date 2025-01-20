@@ -1,41 +1,47 @@
-{  
-  "name": "zipdemon",  
-  "displayName": "zipDemon",  
-  "description": "A VS Code extension that automatically generates documentation for newly created files, including class and method summaries, to keep your projects well-documented with ease.",  
-  "version": "0.0.1",  
-  "engines": {  
-    "vscode": "^1.54.0"  
-  },  
-  "categories": [  
-    "Other"  
-  ],  
-  "activationEvents": [  
-    "onCommand:zipdemon.helloWorld"  
-  ],  
-  "main": "./extension.js",  
-  "contributes": {  
-    "commands": [  
-      {  
-        "command": "zipdemon.helloWorld",  
-        "title": "Hello World"  
-      },  
-      {  
-        "command": "zipdemon.generateDocumentation",  
-        "title": "Generate Documentation"  
-      }  
-    ]  
-  },  
-  "scripts": {  
-    "lint": "eslint .",  
-    "pretest": "npm run lint",  
-    "test": "vscode-test"  
-  },  
-  "devDependencies": {  
-    "@types/vscode": "^1.54.0",  
-    "@types/mocha": "^10.0.10",  
-    "@types/node": "20.x",  
-    "eslint": "^9.16.0",  
-    "@vscode/test-cli": "^0.0.10",  
-    "@vscode/test-electron": "^2.4.1"  
-  }  
+{
+    "name": "zipdemon",
+    "displayName": "ZipDemon",
+    "description": "A VS Code extension that automatically generates documentation.",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.54.0"
+    },
+    "activationEvents": [
+        "onCommand:zipdemon.generateDocumentation"
+    ],
+    "contributes": {
+        "commands": [
+            {
+                "command": "zipdemon.generateDocumentation",
+                "title": "Turn on zipDemon"
+            }
+        ],
+        "menus": {
+            "editor/context": [
+                {
+                    "command": "zipdemon.generateDocumentation",
+                    "when": "editorTextFocus"
+                }
+            ]
+        }
+    },
+    "main": "./extension.js",
+    "scripts": {
+        "lint": "eslint .",
+        "pretest": "npm run lint",
+        "test": "vscode-test"
+    },
+    "devDependencies": {
+        "@types/mocha": "^10.0.10",
+        "@types/node": "20.x",
+        "@types/vscode": "^1.54.0",
+        "@vscode/test-cli": "^0.0.10",
+        "@vscode/test-electron": "^2.4.1",
+        "eslint": "^9.16.0"
+    },
+    "dependencies": {
+        "@google/generative-ai": "^0.21.0",
+        "axios": "^1.7.9",
+        "dotenv": "^16.4.7"
+    }
 }
