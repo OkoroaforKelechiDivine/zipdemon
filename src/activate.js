@@ -4,7 +4,7 @@ const { promptToDocumentNewFile, promptToDocumentFileChange } = require('./utils
 function activate(context) {
     context.subscriptions.push(
         vscode.commands.registerCommand('zipdemon.generateDocumentation', () => {
-            vscode.window.showInformationMessage('ZipDemon Documentation Generator is Active!');
+            vscode.window.showInformationMessage('zipDemon server is now active and ready to bomb!');
         })
     );
 

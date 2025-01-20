@@ -1,8 +1,8 @@
 {
     "name": "zipdemon",
-    "displayName": "ZipDemon",
-    "description": "A VS Code extension that automatically generates documentation.",
-    "version": "0.0.1",
+    "displayName": "zipDemon",
+    "description": "A VS Code extension that automatically generates documentation for code files including class and method summaries, to keep your projects well-documented with ease.",
+    "version": "1.0.0",
     "engines": {
         "vscode": "^1.54.0"
     },
