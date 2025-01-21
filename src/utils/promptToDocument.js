@@ -27,7 +27,8 @@ function handlePrompt(uri, message) {
                         generateDocumentation(filePath);
                         showPreviewButton();
                     }
-                });
+                }
+            );
         }
     }
 }
