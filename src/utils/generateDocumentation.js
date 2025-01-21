@@ -40,7 +40,7 @@ async function generateDocumentation(filePath) {
     const geminiResponse = await fetchGeminiExplanation(fileContent);
     const documentationContent = createDocumentation(parsedContent, geminiResponse);
 
-    createDocumentationFile(filePath, documentationContent + `\n\n## File Content\n${fileContent}`);
+    createDocumentationFile(filePath, documentationContent);
 }
 
 module.exports = generateDocumentation;

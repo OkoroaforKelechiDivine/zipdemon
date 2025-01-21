@@ -15,7 +15,8 @@
     "license": "MIT",
     "activationEvents": [
         "onCommand:zipdemon.generateDocumentation",
-        "onCommand:zipdemon.previewReadme"
+        "onCommand:zipdemon.previewReadme",
+        "onCommand:zipdemon.generateCleanCode"
     ],
     "contributes": {
         "commands": [
@@ -25,7 +26,11 @@
             },
             {
                 "command": "zipdemon.previewReadme",
-                "title": "Preview Generated Documentation"
+                "title": "zipDemon Docs preview"
+            },
+            {
+                "command": "zipdemon.generateCleanCode",
+                "title": "zipDemon clean code"
             }
         ],
         "menus": {
@@ -37,6 +42,11 @@
                 {
                     "command": "zipdemon.previewReadme",
                     "when": "editorTextFocus"
+                },
+                {
+                    "command": "zipdemon.generateCleanCode",
+                    "when": "editorHasSelection",
+                    "group": "navigation"
                 }
             ]
         }
