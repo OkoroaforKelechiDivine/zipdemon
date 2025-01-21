@@ -2,6 +2,7 @@ const vscode = require('vscode');
 const path = require('path');
 const fs = require('fs');
 const generateDocumentation = require('./generateDocumentation');
+const { showPreviewButton } = require('./previewReadme');
 
 function promptToDocumentNewFile(uri) {
     handlePrompt(uri, 'A new file has been created. Would you like to generate documentation?');
@@ -22,11 +23,12 @@ function handlePrompt(uri, message) {
             vscode.window
                 .showInformationMessage(message, 'Yes', 'No')
                 .then(selection => {
-                    if (selection === 'Yes') generateDocumentation(filePath);
+                    if (selection === 'Yes') {
+                        generateDocumentation(filePath);
+                        showPreviewButton();
+                    }
                 });
         }
-    } else {
-        vscode.window.showInformationMessage('This file type is not supported for documentation generation.');
     }
 }
 
