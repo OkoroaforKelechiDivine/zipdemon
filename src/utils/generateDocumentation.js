@@ -5,7 +5,11 @@ const parsePython = require('../parsers/parsePython');
 const parseJava = require('../parsers/parseJava');
 const parseCPlusPlus = require('../parsers/parseCPlusPlus');
 const parseRuby = require('../parsers/parseRuby');
+const parseDart = require("../parsers/parseDart");
 const parseGo = require('../parsers/parseGo');
+const parseTypeScript = require('../parsers/parseTypescript');
+const parsePHP = require('../parsers/parsePHP');
+const parseCSharp = require('../parsers/parseCSharp');
 const fetchGeminiExplanation = require('./fetchGeminiExplanation');
 const createDocumentation = require('./createDocumentation');
 const createDocumentationFile = require('./createDocumentationFile');
@@ -19,7 +23,11 @@ async function generateDocumentation(filePath) {
         '.java': parseJava,
         '.cpp': parseCPlusPlus,
         '.rb': parseRuby,
-        '.go': parseGo
+        '.go': parseGo,
+        '.dart' : parseDart,
+        '.php' : parsePHP,
+        '.cs' : parseCSharp,
+        '.ts' : parseTypeScript
     };
 
     const parse = parsers[fileExtension];

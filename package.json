@@ -1,25 +1,41 @@
 {
     "name": "zipdemon",
-    "displayName": "ZipDemon",
-    "description": "A VS Code extension that automatically generates documentation.",
-    "version": "0.0.1",
+    "displayName": "zipDemon",
+    "description": "A VS Code extension that automatically generates documentation for code files including class and method summaries, to keep your projects well-documented with ease.",
+    "version": "1.0.0",
     "engines": {
         "vscode": "^1.54.0"
     },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/OkoroaforKelechiDivine/zipdemon"
+    },
+    "publisher": "KelechiDivine",
+    "author": "Kelechi Divine",
+    "license": "MIT",
     "activationEvents": [
-        "onCommand:zipdemon.generateDocumentation"
+        "onCommand:zipdemon.generateDocumentation",
+        "onCommand:zipdemon.previewReadme"
     ],
     "contributes": {
         "commands": [
             {
                 "command": "zipdemon.generateDocumentation",
                 "title": "Turn on zipDemon"
+            },
+            {
+                "command": "zipdemon.previewReadme",
+                "title": "Preview Generated Documentation"
             }
         ],
         "menus": {
             "editor/context": [
                 {
                     "command": "zipdemon.generateDocumentation",
+                    "when": "editorTextFocus"
+                },
+                {
+                    "command": "zipdemon.previewReadme",
                     "when": "editorTextFocus"
                 }
             ]
@@ -42,6 +58,7 @@
     "dependencies": {
         "@google/generative-ai": "^0.21.0",
         "axios": "^1.7.9",
-        "dotenv": "^16.4.7"
+        "dotenv": "^16.4.7",
+        "marked": "^15.0.6"
     }
 }
