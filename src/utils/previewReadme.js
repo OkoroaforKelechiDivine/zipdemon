@@ -4,7 +4,7 @@ const { getGeneratedFilePath } = require('../shared/generatedFilePath');
 
 function showPreviewButton() {
     const previewButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 100);
-    previewButton.text = '$(eye) Preview Document';
+    previewButton.text = '$(eye) zipdemon Document preview';
     previewButton.backgroundColor = new vscode.ThemeColor('statusBarItem.errorBackground');
     previewButton.command = 'zipdemon.previewReadme';
     previewButton.show();

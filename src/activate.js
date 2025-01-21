@@ -1,6 +1,7 @@
 const vscode = require('vscode');
 const { promptToDocumentNewFile, promptToDocumentFileChange } = require('./utils/promptToDocument');
 const { previewReadme } = require('./utils/previewReadme');
+const { generateCleanCode } = require('./shared/generateCleanCode'); // Import the clean code functionality
 
 function activate(context) {
     context.subscriptions.push(
@@ -8,7 +9,25 @@ function activate(context) {
             vscode.window.showInformationMessage('zipDemon server is now active and ready to bomb!');
         }),
 
-        vscode.commands.registerCommand('zipdemon.previewReadme', previewReadme)
+        vscode.commands.registerCommand('zipdemon.previewReadme', previewReadme),
+
+        // Add the clean code generation command
+        vscode.commands.registerCommand('zipdemon.generateCleanCode', async () => {
+            const editor = vscode.window.activeTextEditor;
+            if (editor) {
+                const selection = editor.selection;
+                const selectedText = editor.document.getText(selection);
+
+                if (selectedText.trim()) {
+                    const cleanCode = await generateCleanCode(selectedText);
+                    if (cleanCode) {
+                        editor.edit(editBuilder => {
+                            editBuilder.replace(selection, cleanCode); // Replace selected text with cleaned code
+                        });
+                    }
+                }
+            }
+        })
     );
 
     const fileWatcher = vscode.workspace.createFileSystemWatcher('**/*');
