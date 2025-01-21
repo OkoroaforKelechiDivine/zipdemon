@@ -7,7 +7,7 @@ async function fetchGeminiExplanation(fileContent) {
 
     try {
         const response = await axios.post(apiUrl, {
-            contents: [{ parts: [{ text: `Generate a professional software engineering documentation and write example of usage if possible:\n${fileContent}` }] }]
+            contents: [{ parts: [{ text: `Generate a professional software engineering documentation and write example of usage if possible, just the important part that makes up a professional documentation:\n${fileContent}` }] }]
         });
         return response.data?.candidates?.[0]?.content?.parts?.[0]?.text || 'No explanation generated.';
     } catch (error) {
