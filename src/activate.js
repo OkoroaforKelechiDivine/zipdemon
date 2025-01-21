@@ -11,7 +11,6 @@ function activate(context) {
 
         vscode.commands.registerCommand('zipdemon.previewReadme', previewReadme),
 
-        // Add the clean code generation command
         vscode.commands.registerCommand('zipdemon.generateCleanCode', async () => {
             const editor = vscode.window.activeTextEditor;
             if (editor) {
@@ -22,7 +21,7 @@ function activate(context) {
                     const cleanCode = await generateCleanCode(selectedText);
                     if (cleanCode) {
                         editor.edit(editBuilder => {
-                            editBuilder.replace(selection, cleanCode); // Replace selected text with cleaned code
+                            editBuilder.replace(selection, cleanCode);
                         });
                     }
                 }
