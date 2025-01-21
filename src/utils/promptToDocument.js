@@ -25,6 +25,8 @@ function handlePrompt(uri, message) {
                     if (selection === 'Yes') generateDocumentation(filePath);
                 });
         }
+    } else {
+        vscode.window.showInformationMessage('This file type is not supported for documentation generation.');
     }
 }
 
