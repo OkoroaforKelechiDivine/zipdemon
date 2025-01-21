@@ -7,6 +7,7 @@ const parseCPlusPlus = require('../parsers/parseCPlusPlus');
 const parseRuby = require('../parsers/parseRuby');
 const parseDart = require("../parsers/parseDart");
 const parseGo = require('../parsers/parseGo');
+const parsePHP = require('../parsers/parsePHP');
 const fetchGeminiExplanation = require('./fetchGeminiExplanation');
 const createDocumentation = require('./createDocumentation');
 const createDocumentationFile = require('./createDocumentationFile');
@@ -22,6 +23,7 @@ async function generateDocumentation(filePath) {
         '.rb': parseRuby,
         '.go': parseGo,
         '.dart' : parseDart,
+        '.php' : parsePHP
     };
 
     const parse = parsers[fileExtension];

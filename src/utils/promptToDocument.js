@@ -14,7 +14,7 @@ function promptToDocumentFileChange(uri) {
 function handlePrompt(uri, message) {
     const filePath = uri.fsPath;
     const fileExtension = path.extname(filePath).toLowerCase();
-    const supportedExtensions = ['.js', '.py', '.java', '.cpp', '.rb', '.go', '.dart'];
+    const supportedExtensions = ['.js', '.py', '.java', '.cpp', '.rb', '.go', '.dart', '.php'];
 
     if (supportedExtensions.includes(fileExtension)) {
         const fileContent = fs.readFileSync(filePath, 'utf-8');
