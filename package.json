@@ -1,8 +1,8 @@
 {
     "name": "zipdemon",
     "displayName": "zipDemon",
-    "description": "A VS Code extension that automatically generates documentation for code files including class and method summaries, to keep your projects well-documented with ease.",
-    "version": "1.0.0",
+    "description": "A VS Code extension that automatically generates clean, well-documented code by providing concise summaries of classes, methods, and functions. Ideal for maintaining organized, readable projects effortlessly.",
+    "version": "2.0.0",
     "engines": {
         "vscode": "^1.54.0"
     },
@@ -26,11 +26,11 @@
             },
             {
                 "command": "zipdemon.previewReadme",
-                "title": "zipDemon Docs preview"
+                "title": "zipDemon preview"
             },
             {
                 "command": "zipdemon.generateCleanCode",
-                "title": "zipDemon clean code"
+                "title": "zipDemon code"
             }
         ],
         "menus": {
