@@ -1,16 +1,15 @@
 const vscode = require('vscode');
 const { promptToDocumentNewFile, promptToDocumentFileChange } = require('./utils/promptToDocument');
 const { previewReadme } = require('./utils/previewReadme');
-const { generateCleanCode } = require('./shared/generateCleanCode'); // Import the clean code functionality
+const { generateCleanCode } = require('./shared/generateCleanCode');
 
 function activate(context) {
     context.subscriptions.push(
         vscode.commands.registerCommand('zipdemon.generateDocumentation', () => {
             vscode.window.showInformationMessage('zipDemon server is now active and ready to bomb!');
         }),
-
+        
         vscode.commands.registerCommand('zipdemon.previewReadme', previewReadme),
-
         vscode.commands.registerCommand('zipdemon.generateCleanCode', async () => {
             const editor = vscode.window.activeTextEditor;
             if (editor) {

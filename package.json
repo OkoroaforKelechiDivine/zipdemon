@@ -2,7 +2,7 @@
     "name": "zipdemon",
     "displayName": "zipDemon",
     "description": "A VS Code extension that automatically generates clean, well-documented code by providing concise summaries of classes, methods, and functions. Ideal for maintaining organized, readable projects effortlessly.",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "engines": {
         "vscode": "^1.54.0"
     },
