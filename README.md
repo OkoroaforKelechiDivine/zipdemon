@@ -1,6 +1,6 @@
 # zipDemon - Visual Studio Code Extension
 
-zipDemon is a Visual Studio Code extension that automatically generates documentation for supported programming languages. It leverages language language model to provide an AI-powered explanation of the code, along with a summary of classes, functions, and variables identified within the file. The generated documentation is saved as a Markdown file in a `docs` subdirectory within the same directory as the source code file.
+zipDemon is a Visual Studio Code extension that automatically generates documentation for supported programming languages. It leverages language language model to provide an AI-powered explanation of the code, along with a summary of classes, functions, and variables identified within the file. The generated documentation is saved as a Markdown file in a `docs` subdirectory within the same directory as the source code file. It also Includes a Generate Clean Code command to clean up code in the active editor by improving naming conventions, simplifying logic, andrefactoring.
 
 ## Features
 
@@ -36,6 +36,10 @@ Alternatively, you can install it from the [Visual Studio Code Marketplace](http
 - c++
 - Ruby
 - Go
+- PHP
+- Dart
+- C#
+- Typescript 
 
 ## Contributing
 
