@@ -8,7 +8,7 @@ async function generateCleanCode(code) {
         const response = await axios.post(apiUrl, {
             contents: [{
                 parts: [{
-                    text: `Generate clean, well-structured code with improved naming conventions and simplifications, while maintaining all existing functionality. Do not add or remove anything from the code. Return only the cleaned-up code as plain text, without any formatting or delimiters (no backticks, tags, or additional characters):\n${code}`
+                    text: `Generate clean, concise, and well-structured code using professional and advanced algorithms. Do not change the class name. Simplify the code while ensuring it executes the same functionality. Do not write everything on one line; maintain readability with proper formatting. Do not add or remove anything from the code. Return the updated code as plain text, without formatting or delimiters.:\n${code}`
                 }]
             }]
         });

@@ -3,7 +3,7 @@ const { promptToDocumentNewFile, promptToDocumentFileChange } = require('./utils
 const { previewReadme } = require('./utils/previewReadme');
 const { generateCleanCode } = require('./shared/generateCleanCode');
 
-function activate(context) {
+async function activate(context) {
     context.subscriptions.push(
         vscode.commands.registerCommand('zipdemon.generateDocumentation', () => {
             vscode.window.showInformationMessage('zipDemon server is now active and ready to bomb!');

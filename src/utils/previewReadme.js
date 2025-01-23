@@ -13,12 +13,17 @@ function showPreviewButton() {
 function previewReadme() {
     const generatedFilePath = getGeneratedFilePath();
     if (generatedFilePath && fs.existsSync(generatedFilePath)) {
-        vscode.commands.executeCommand('markdown.showPreview', vscode.Uri.file(generatedFilePath))
-            .then(() => {
+        const fileUri = vscode.Uri.file(generatedFilePath);
+        
+        vscode.window.showTextDocument(fileUri).then((editor) => {
+            vscode.commands.executeCommand('markdown.showPreviewToSide', fileUri).then(() => {
                 vscode.window.showInformationMessage('Document previewed as markdown!');
             }).catch(err => {
                 vscode.window.showInformationMessage('Failed to preview document: ' + err.message);
             });
+        }).catch(err => {
+            vscode.window.showInformationMessage('Failed to open file for editing: ' + err.message);
+        });
     } else {
         vscode.window.showInformationMessage('No document file generated yet.');
     }
