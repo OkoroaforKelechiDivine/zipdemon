@@ -17,6 +17,7 @@ async function activate(context) {
                 const selectedText = editor.document.getText(selection);
 
                 if (selectedText.trim()) {
+                    
                     const cleanCode = await generateCleanCode(selectedText);
                     if (cleanCode) {
                         editor.edit(editBuilder => {
